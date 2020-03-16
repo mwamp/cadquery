@@ -703,7 +703,21 @@ class Edge(Shape, Mixin1D):
         umax = curve.LastParameter()
 
         return Vector(curve.Value(umax))
+    
+    def tangentAt(self, locationParam=0.5):
+        """
+        Compute position at the specified location.
+        :param locationParam: location to use in [0,1]
+        :return: position
+        """
 
+        curve = self._geomAdaptor()
+
+        umin, umax = curve.FirstParameter(), curve.LastParameter()
+        umid = (1 - locationParam) * umin + locationParam * umax
+        
+        return Vector(curve.Value(umid))
+        
     def tangentAt(self, locationParam=0.5):
         """
         Compute tangent vector at the specified location.
